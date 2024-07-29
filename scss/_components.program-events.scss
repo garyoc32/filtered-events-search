@@ -1,0 +1,607 @@
+.ReactCollapse--collapse {
+  transition: height 200ms;
+}
+
+.c-program-events {
+  padding-bottom: 40px;
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+.c-program-events-container {
+  > .wrapper-content {
+    @include mq($until: tablet) {
+      padding: 0;
+    }
+  }
+}
+
+.c-program-events-filter-display {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  column-gap: 60px;
+}
+
+.c-program-events-filter-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font-book);
+  line-height: 0.75rem;
+  color: color('white');
+  cursor: pointer;
+
+  .filter-toggle-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 23px;
+    width: 23px;
+    background-color: var(--color-brand);
+    border-radius: 50%;
+    margin-left: 12px;
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 9px;
+      width: 1px;
+      background-color: #000;
+    }
+
+    &::before {
+      opacity: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    &::after {
+      transform: rotate(90deg);
+      transform-origin: center;
+    }
+
+    &.open {
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.c-program-events-filter-dates {
+  margin-bottom: 50px;
+
+  @include mq($until: tablet) {
+    margin-bottom: 16px;
+  }
+
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(17%, 176px));
+    gap: 10px;
+    justify-content: space-between;
+    margin: 0;
+  
+    .c-filter-date {
+      position: relative;
+      max-width: 196px;
+      flex: 1 1 100%;
+  
+      .c-filter-date-btn {
+        aspect-ratio: 1 / 1;
+        height: auto;
+        width: 100%;
+
+        @supports not (aspect-ratio: auto) {
+          padding-top: 100%;
+          height: 0;
+        }
+      }
+  
+      input {
+        position: absolute;
+        opacity: 0;
+  
+        &:checked ~ label {
+          background-color: var(--color-brand);
+          color: color('black');
+        }
+      }
+  
+      label {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border: 5px solid var(--color-brand);
+        border-radius: 50%;
+        font-family: var(--font-bold);
+        font-size: 22px;
+        line-height: 24px;
+        padding: 0 4px;
+        text-align: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        color: color('white');
+
+        @supports not (aspect-ratio: auto) {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+.c-program-events-filter-areas {
+  position: relative;
+  padding-top: 28px;
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 16px;
+    margin: 0;
+    justify-content: flex-start;
+
+    .c-filter-area {
+      position: relative;
+      padding-right: 20px;
+      flex: 1 0 50%;
+
+      &:first-child {
+        flex: 1 0 100%;
+      }
+      
+      label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        color: color('white');
+        width: max-content;
+
+        &::before {
+          display: inline-flex;
+          content: '';
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          border: 1px solid color('white');
+          margin-right: 8px;
+        }
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+
+        &:checked ~ label {
+          &::after {
+            position: absolute;
+            left: 6px;
+            top: 6px;
+            display: block;
+            content: '';
+            height: 10px;
+            width: 10px;
+            background-color: var(--color-brand);
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.c-program-events-filter-types {
+  position: relative;
+  padding-top: 28px;
+
+  &-list {
+    display: flex;
+    margin: 0;
+    flex-wrap: wrap;
+    row-gap: 16px;
+
+    .c-filter-type {
+      padding-right: 20px;
+      position: relative;
+      flex: 1 0 50%;
+
+      &:first-child {
+        flex: 1 0 100%;
+      }
+      
+      label {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        color: color('white');
+      }
+
+      input {
+        opacity: 0;
+        position: absolute;
+
+        &[type="checkbox"] {
+          & ~ label {
+            &::before {
+              display: block;
+              content: '';
+              height: 20px;
+              width: 20px;
+              border: 1px solid color('white');
+              margin-right: 8px;
+            }
+          }
+        }
+
+        &[type="radio"] {
+          & ~ label {
+            &::before {
+              display: block;
+              content: '';
+              height: 22px;
+              width: 22px;
+              border: 1px solid color('white');
+              border-radius: 50%;
+              margin-right: 8px;
+            }
+          }
+        }
+
+        &:checked {
+          & ~ label {
+            &::after {
+              content: '';
+              position: absolute;
+              display: block;
+              background-color: var(--color-brand);
+              height: 10px;
+              width: 10px;
+              left: 5px;
+              top: 5px;
+            }
+          }
+
+          &[type="radio"] {
+            & ~ label {
+              &::after {
+                border-radius: 50%;
+                left: 6px;
+                top: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.c-program-events-grid {
+  padding-top: 40px;
+}
+
+.c-program-events-list {
+  margin: 0;
+
+  li {
+    margin-bottom: var(--gutter);
+  }
+}
+
+.c-program-event {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--color-grey-light);
+  min-height: 114px;
+  border-radius: 57px;
+
+  &.no-events {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+
+  &-meta {
+    align-items: center;
+    flex: 0 0 25%;
+  }
+
+  &-dates {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 5px 15px 5px 108px;
+
+    span {
+      display: block;
+    }
+
+    .c-program-event-start,
+    .c-program-event-end {
+      flex: 0 1 50%;
+    }
+
+    .date-title {
+      font-family: var(--font-book);
+      font-size: 0.75rem;
+      line-height: 15px;
+    }
+
+    .date-time {
+      font-family: var(--font-bold);
+      font-size: 0.875rem;
+      line-height: 15px;
+    }
+  }
+
+  &-content {
+    position: relative;
+    flex: 0 1 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 35px 10px 40px;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      height: 55%;
+      border-left: 1px solid #000;
+    }
+
+    h3 {
+      line-height: 28px;
+      margin-bottom: 4px;
+      text-transform: none;
+    }
+
+    p {
+      font-family: var(--font-book);
+      font-size: 0.875rem;
+      line-height: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &-location {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 0 67px;
+    max-width: 284px;
+    flex: 1 0 284px;
+    font-family: var(--font-bold);
+    font-size: 0.875rem;
+    border-top-right-radius: 57px;
+    border-bottom-right-radius: 57px;
+  }
+}
+
+@include mq($until: breakgridxl) {
+  .c-program-events-filter-display {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .c-program-events-filter-toggle {
+    order: 1;
+    margin-top: 16px;
+    font-size: 12px;
+  }
+
+  .c-program-events-filter-areas-list {
+    font-size: 0.75rem;
+    line-height: 15px;
+
+    .c-filter-area {
+      padding-right: 7px;
+
+      label {
+        &::before {
+          width: 17px;
+          height: 17px;
+          margin-right: 4px;
+          flex-shrink: 0;
+        }
+      }
+
+      input {
+        &:checked ~ label {
+          &::after {
+            height: 7px;
+            width: 7px;
+            left: 5px;
+            top: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .c-program-events-filter-types {
+    padding-top: 20px;
+
+    &-list {
+      font-size: 0.75rem;
+
+      .c-filter-type {
+        padding-right: 0;
+        margin-bottom: 10px;
+
+        input {
+          &[type="checkbox"] {
+            & ~ label {
+              &::before {
+                height: 15px;
+                width: 15px;
+              }
+            }
+          }
+
+          &[type="radio"] {
+            & ~ label {
+              &::before {
+                height: 17px;
+                width: 17px;
+              }
+            }
+          }
+
+          &:checked {
+            & ~ label {
+              &::after {
+                height: 7px;
+                width: 7px;
+                left: 4px;
+                top: 4px;
+              }
+            }
+
+            &[type="radio"] {
+              & ~ label {
+                &::after {
+                  left: 5px;
+                  top: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .c-program-event {
+    &-dates {
+      .date-time {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+.c-program-events__link {
+  margin: 56px auto;
+  text-align: center;
+}
+
+@include mq($until: tablet) {
+  .c-program-events-grid {
+    padding-top: 30px;
+  }
+
+  .c-program-events-filter-dates {
+    &-list {
+      gap: 6px;
+
+      .c-filter-date {
+        label {
+          font-size: 0.75rem;
+          line-height: 12px;
+          border-width: 1px;
+        }
+      }
+    }
+  }
+
+  .c-program-event {
+    flex-direction: column;
+    border-radius: 27px;
+
+    &-dates {
+      padding: 18px 0 10px;
+      text-align: center;
+
+      span {
+        display: inline-block;
+      }
+
+      .c-program-event-start,
+      .c-program-event-end {
+        padding: 2px 10px;
+      }
+
+      .c-program-event-start {
+        border-right: 1px solid #000;
+      }
+
+      .date-title {
+        margin-right: 5px;
+      }
+    }
+
+    &-content {
+      padding: 5px 22px 23px;
+      text-align: center;
+
+      &::before {
+        display: none;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+      }
+
+      p,
+      div {
+        font-size: 0.75rem;
+        line-height: 15px;
+      }
+    }
+
+    &-location {
+      max-width: 100%;
+      flex: 0 1 37px;
+      font-size: 0.75rem;
+      line-height: 13px;
+      border-bottom-left-radius: 27px;
+      border-bottom-right-radius: 27px;
+      border-top-right-radius: 0;
+      padding: 5px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@include mq(breakgrid) {
+  .c-program-events-filter-dates {
+    &-list {
+      .c-filter-date {
+        label {
+          &:hover {
+            background-color: var(--color-brand);
+          }
+        }
+      }
+    }
+  }
+}
